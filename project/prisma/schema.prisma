@@ -19,19 +19,26 @@ model Users {
 }
 
 model Products {
-  id        String      @id @default(uuid())
+  id        String     @id @default(uuid())
   name      String
   price     Float
   image_url String
-  Purchases Purchases[]
+  ItemList  ItemList[]
 }
 
 model Purchases {
-  id          String   @id @default(uuid())
-  user_id     String
-  user        Users    @relation(fields: [user_id], references: [id])
-  product_id  String
-  product     Products @relation(fields: [product_id], references: [id])
-  quantity    Int
-  total_price Float    @default(0.00)
+  id            String   @id @default(uuid())
+  user_id       String
+  user          Users    @relation(fields: [user_id], references: [id])
+  purchase_date DateTime
+  items_list_id String[]
+  total_price   Float    @default(0.00)
+}
+
+model ItemList {
+  id            String   @id @default(uuid())
+  product       Products @relation(fields: [product_id], references: [id])
+  product_id    String
+  product_price Float
+  quantity      Int
 }

@@ -14,7 +14,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Usuário"
+                                "$ref": "#/components/schemas/User"
                             },
                             "examples": {
                                 "Register": {
@@ -291,7 +291,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Produto"
+                                "$ref": "#/components/schemas/Product"
                             },
                             "examples": {
                                 "Register": {
@@ -358,22 +358,22 @@
                                     "Search": {
                                         "value": [
                                             {
-                                                "id": "38c9c1a2-7c82-4eed-9880-4609bfb0ed41",
-                                                "name": "João da Silva",
-                                                "email": "joao.silva@email.com",
-                                                "password": "123456"
+                                                "id": "bd6bbc50-8b85-4d62-b307-2b90ca314164",
+                                                "name": "Notebook Dell Inspiron 5406",
+                                                "price": 4615.99,
+                                                "image_url": "https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ23456"
                                             },
                                             {
-                                                "id": "bfe45fc3-bea7-45e8-9a3a-575198faedf4",
-                                                "name": "Maria Aparecida",
-                                                "email": "maria.aparecida@email.com",
-                                                "password": "654321"
+                                                "id": "87ac3c4f-6c31-4ece-b627-1e0961c062eb",
+                                                "name": "Iphone 8 Pro",
+                                                "price": 2699.59,
+                                                "image_url": "https://i.picsum.photos/id/3/5000/3333.jpg?hmac=GDjZ2uNWE3V59PkdDaOzTOuV3tPWWxJSf4fNcxu4S2g"
                                             },
                                             {
-                                                "id": "1e440c4b-9817-4c10-bb57-ce7c5310d095",
-                                                "name": "José de Paula",
-                                                "email": "jose.paula@email.com",
-                                                "password": "senha123"
+                                                "id": "0b843840-1ed2-4fe3-b46a-2f2ee599ca3f",
+                                                "name": "SmartWatch 8.5 Pro",
+                                                "price": 1879.69,
+                                                "image_url": "https://i.picsum.photos/id/4/5000/3333.jpg?hmac=ghf06FdmgiD0-G4c9DdNM8RnBIN7BO0-ZGEw47khHP4"
                                             }
                                         ]
                                     }
@@ -386,7 +386,7 @@
         },
         "/products/{id}": {
             "get": {
-                "summary": "Retorna um usuário específico de acordo com o ID informado",
+                "summary": "Retorna um produto específico de acordo com o ID informado",
                 "tags": ["PRODUCTS"],
                 "parameters": [
                     {
@@ -405,12 +405,12 @@
                             "application/json": {
                                 "examples": {
                                     "Search": {
-                                        "summary": "Retorna um usuário específico",
+                                        "summary": "Retorna um produto específico",
                                         "value": {
-                                            "id": "38c9c1a2-7c82-4eed-9880-4609bfb0ed41",
-                                            "name": "João da Silva",
-                                            "email": "joao.silva@email.com",
-                                            "password": "123456"
+                                            "id": "bd6bbc50-8b85-4d62-b307-2b90ca314164",
+                                            "name": "Notebook Dell Inspiron 5406",
+                                            "price": 4615.99,
+                                            "image_url": "https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ23456"
                                         }
                                     }
                                 }
@@ -418,7 +418,7 @@
                         }
                     },
                     "404": {
-                        "description": "É retornado quando um usuário não é encontrado com o id informado",
+                        "description": "É retornado quando um produto não é encontrado com o id informado",
                         "content": {
                             "application/json": {
                                 "examples": {
@@ -426,7 +426,7 @@
                                         "summary": "Error",
                                         "value": {
                                             "statusCode": 404,
-                                            "message": "user with id '38c9c1a2-7c82-4eed-9880-4609bfb0ed41z' not found",
+                                            "message": "product with id '38c9c1a2-7c82-4eed-9880-4609bfb0ed41z' not found",
                                             "error": "Not Found"
                                         }
                                     }
@@ -437,7 +437,7 @@
                 }
             },
             "patch": {
-                "summary": "Altera a senha do usuário",
+                "summary": "Altera o preço ou url da imagem do produto",
                 "tags": ["PRODUCTS"],
                 "parameters": [
                     {
@@ -453,13 +453,14 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/UserUpdate"
+                                "$ref": "#/components/schemas/ProductUpdate"
                             },
                             "examples": {
                                 "Update": {
-                                    "summary": "Altera a senha do usuário",
+                                    "summary": "Altera o preço ou url da imagem do produto",
                                     "value": {
-                                        "password": "123456@"
+                                        "price": 1699.89,
+                                        "image_url": "https://i.picsum.photos/id/8/5000/3333.jpg?hmac=OeG5ufhPYQBd6Rx1TAldAuF92lhCzAhKQKttGfawWuA"
                                     }
                                 }
                             }
@@ -468,10 +469,10 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Senha alterada com sucesso!"
+                        "description": "Produto alterado com sucesso!"
                     },
                     "404": {
-                        "description": "É retornado quando um usuário não é encontrado com o id informado",
+                        "description": "É retornado quando um produto não é encontrado com o id informado",
                         "content": {
                             "application/json": {
                                 "examples": {
@@ -479,7 +480,7 @@
                                         "summary": "Error",
                                         "value": {
                                             "statusCode": 404,
-                                            "message": "user with id '38c9c1a2-7c82-4eed-9880-4609bfb0ed41z' not found",
+                                            "message": "product with id '38c9c1a2-7c82-4eed-9880-4609bfb0ed41z' not found",
                                             "error": "Not Found"
                                         }
                                     }
@@ -521,10 +522,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Usuário deletado com sucesso!"
+                        "description": "Produto deletado com sucesso!"
                     },
                     "404": {
-                        "description": "É retornado quando um usuário não é encontrado",
+                        "description": "É retornado quando um produto não é encontrado",
                         "content": {
                             "application/json": {
                                 "examples": {
@@ -532,7 +533,7 @@
                                         "summary": "Error",
                                         "value": {
                                             "statusCode": 404,
-                                            "message": "user with id '38c9c1a2-7c82-4eed-9880-4609bfb0ed41z' not found",
+                                            "message": "product with id '38c9c1a2-7c82-4eed-9880-4609bfb0ed41z' not found",
                                             "error": "Not Found"
                                         }
                                     }
@@ -560,23 +561,23 @@
                 }
             }
         },
-        "/orders": {
+        "/purchases": {
             "post": {
-                "summary": "Cadastra um novo pedido",
+                "summary": "Cadastra uma nova compra",
                 "tags": ["COMPRAS"],
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Pedido"
+                                "$ref": "#/components/schemas/Purchase"
                             },
                             "examples": {
                                 "Register": {
-                                    "summary": "Cadastra um novo pedido",
+                                    "summary": "Cadastra uma nova compra",
                                     "value": {
-                                        "delivery_date": "2022-10-05T12:09:04.374Z",
-                                        "client_name": "João",
-                                        "items_list_id": ["11", "12", "13"]
+                                        "user_id": "38c9c1a2-7c82-4eed-9880-4609bfb0ed41",
+                                        "product_id": "87ac3c4f-6c31-4ece-b627-1e0961c062eb",
+                                        "quantity": 5
                                     }
                                 }
                             }
@@ -667,7 +668,7 @@
                 }
             }
         },
-        "/orders/{id}": {
+        "/purchases/{id}": {
             "get": {
                 "summary": "Retorna um pedido específico de acordo com o ID informado",
                 "tags": ["COMPRAS"],
@@ -740,7 +741,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Pedido"
+                                "$ref": "#/components/schemas/Purchase"
                             },
                             "examples": {
                                 "Register": {
@@ -804,7 +805,7 @@
     },
     "components": {
         "schemas": {
-            "Usuário": {
+            "User": {
                 "type": "object",
                 "properties": {
                     "name": {
@@ -821,7 +822,7 @@
                     }
                 }
             },
-            "Produto": {
+            "Product": {
                 "type": "object",
                 "properties": {
                     "name": {
@@ -838,7 +839,7 @@
                     }
                 }
             },
-            "Compra": {
+            "Purchase": {
                 "type": "object",
                 "properties": {
                     "user_id": {
@@ -865,6 +866,19 @@
                     "password": {
                         "type": "string",
                         "description": "Nova Senha do Usuário"
+                    }
+                }
+            },
+            "ProductUpdate": {
+                "type": "object",
+                "properties": {
+                    "price": {
+                        "type": "float",
+                        "description": "Novo Preço do Produto"
+                    },
+                    "image_url": {
+                        "type": "string",
+                        "description": "Nova url da imagem do Produto"
                     }
                 }
             }
