@@ -33,7 +33,7 @@
                     "201": {
                         "description": "Usuário cadastrado com sucesso!"
                     },
-                    "400": {
+                    "409": {
                         "description": "É retornado quando já existe um usuário cadastrado no sistema com o email informado",
                         "content": {
                             "application/json": {
@@ -41,9 +41,26 @@
                                     "Error": {
                                         "summary": "Error",
                                         "value": {
-                                            "statusCode": 400,
-                                            "message": "Name already exists",
-                                            "error": "Bad Request"
+                                            "statusCode": 409,
+                                            "message": "User with email 'joaozinho@email.com' already exists",
+                                            "error": "Conflict"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "É retornado quando ocorreu algum erro no servidor",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Error": {
+                                        "summary": "Error",
+                                        "value": {
+                                            "statusCode": 500,
+                                            "message": "Internal server error",
+                                            "error": "Internal Server Error"
                                         }
                                     }
                                 }
@@ -61,31 +78,25 @@
                         "content": {
                             "application/json": {
                                 "examples": {
-                                    "Search All": {
+                                    "Search": {
                                         "value": [
                                             {
-                                                "id": "16",
-                                                "name": "AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML",
-                                                "price": 20.49,
-                                                "qty_stock": 158
+                                                "id": "38c9c1a2-7c82-4eed-9880-4609bfb0ed41",
+                                                "name": "João da Silva",
+                                                "email": "joao.silva@email.com",
+                                                "password": "123456"
                                             },
                                             {
-                                                "id": "18",
-                                                "name": "BEBIDA ENERGÉTICA VIBE 2L",
-                                                "price": 8.99,
-                                                "qty_stock": 659
+                                                "id": "bfe45fc3-bea7-45e8-9a3a-575198faedf4",
+                                                "name": "Maria Aparecida",
+                                                "email": "maria.aparecida@email.com",
+                                                "password": "654321"
                                             },
                                             {
-                                                "id": "19",
-                                                "name": "ENERGÉTICO RED BULL ENERGY DRINK 250ML",
-                                                "price": 7.29,
-                                                "qty_stock": 909
-                                            },
-                                            {
-                                                "id": "20",
-                                                "name": "ENERGÉTICO RED BULL ENERGY DRINK 355ML",
-                                                "price": 10.79,
-                                                "qty_stock": 159
+                                                "id": "1e440c4b-9817-4c10-bb57-ce7c5310d095",
+                                                "name": "José de Paula",
+                                                "email": "jose.paula@email.com",
+                                                "password": "senha123"
                                             }
                                         ]
                                     }
@@ -96,9 +107,9 @@
                 }
             }
         },
-        "/products/{id}": {
+        "/users/{id}": {
             "get": {
-                "summary": "Retorna um produto específico de acordo com o ID informado",
+                "summary": "Retorna um usuário específico de acordo com o ID informado",
                 "tags": ["USUÁRIOS"],
                 "parameters": [
                     {
@@ -116,13 +127,13 @@
                         "content": {
                             "application/json": {
                                 "examples": {
-                                    "Register": {
-                                        "summary": "Retorna um produto específico",
+                                    "Search": {
+                                        "summary": "Retorna um usuário específico",
                                         "value": {
-                                            "id": "16",
-                                            "name": "AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML",
-                                            "price": 20.49,
-                                            "qty_stock": 158
+                                            "id": "38c9c1a2-7c82-4eed-9880-4609bfb0ed41",
+                                            "name": "João da Silva",
+                                            "email": "joao.silva@email.com",
+                                            "password": "123456"
                                         }
                                     }
                                 }
@@ -130,7 +141,7 @@
                         }
                     },
                     "404": {
-                        "description": "É retornado quando um produto não é encontrado",
+                        "description": "É retornado quando um usuário não é encontrado com o id informado",
                         "content": {
                             "application/json": {
                                 "examples": {
@@ -138,7 +149,7 @@
                                         "summary": "Error",
                                         "value": {
                                             "statusCode": 404,
-                                            "message": "product with id '101' not found",
+                                            "message": "user with id '38c9c1a2-7c82-4eed-9880-4609bfb0ed41z' not found",
                                             "error": "Not Found"
                                         }
                                     }
@@ -149,7 +160,7 @@
                 }
             },
             "patch": {
-                "summary": "Diminui a quantidade em estoque do produto de ID informado com a quantidade informada no body desta requisição",
+                "summary": "Altera a senha do usuário",
                 "tags": ["USUÁRIOS"],
                 "parameters": [
                     {
@@ -165,13 +176,13 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Produto"
+                                "$ref": "#/components/schemas/UserUpdate"
                             },
                             "examples": {
-                                "Register": {
-                                    "summary": "Altera um produto",
+                                "Update": {
+                                    "summary": "Altera a senha do usuário",
                                     "value": {
-                                        "quantity": 3
+                                        "password": "123456@"
                                     }
                                 }
                             }
@@ -180,42 +191,10 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Sucesso",
-                        "content": {
-                            "application/json": {
-                                "examples": {
-                                    "Register": {
-                                        "summary": "Retorna o produto com a quantidade alterada",
-                                        "value": {
-                                            "id": "96",
-                                            "name": "ÁGUA MINERAL SEM GÁS CRYSTAL PET 1,5L",
-                                            "price": 2.59,
-                                            "qty_stock": 170
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "É retornado quando a quantidade em estoque do produto é 0",
-                        "content": {
-                            "application/json": {
-                                "examples": {
-                                    "Error": {
-                                        "summary": "Error",
-                                        "value": {
-                                            "statusCode": 400,
-                                            "message": "This product has stock quantity unavailable.",
-                                            "error": "Bad Request"
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        "description": "Senha alterada com sucesso!"
                     },
                     "404": {
-                        "description": "É retornado quando um produto não é encontrado",
+                        "description": "É retornado quando um usuário não é encontrado com o id informado",
                         "content": {
                             "application/json": {
                                 "examples": {
@@ -223,8 +202,25 @@
                                         "summary": "Error",
                                         "value": {
                                             "statusCode": 404,
-                                            "message": "product with id '101' not found",
+                                            "message": "user with id '38c9c1a2-7c82-4eed-9880-4609bfb0ed41z' not found",
                                             "error": "Not Found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "É retornado quando ocorreu algum erro no servidor",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Error": {
+                                        "summary": "Error",
+                                        "value": {
+                                            "statusCode": 500,
+                                            "message": "Internal server error",
+                                            "error": "Internal Server Error"
                                         }
                                     }
                                 }
@@ -248,25 +244,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Sucesso",
-                        "content": {
-                            "application/json": {
-                                "examples": {
-                                    "Register": {
-                                        "summary": "Deleta um produto específico",
-                                        "value": {
-                                            "id": "43e172ac-f044-4599-a756-77c54afdfc33",
-                                            "name": "SmartPhone S20FE 2022",
-                                            "price": 3500.99,
-                                            "qty_stock": 32
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        "description": "Usuário deletado com sucesso!"
                     },
                     "404": {
-                        "description": "É retornado quando um produto não é encontrado",
+                        "description": "É retornado quando um usuário não é encontrado",
                         "content": {
                             "application/json": {
                                 "examples": {
@@ -274,8 +255,25 @@
                                         "summary": "Error",
                                         "value": {
                                             "statusCode": 404,
-                                            "message": "product with id '101' not found",
+                                            "message": "user with id '38c9c1a2-7c82-4eed-9880-4609bfb0ed41z' not found",
                                             "error": "Not Found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "É retornado quando ocorreu algum erro no servidor",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Error": {
+                                        "summary": "Error",
+                                        "value": {
+                                            "statusCode": 500,
+                                            "message": "Internal server error",
+                                            "error": "Internal Server Error"
                                         }
                                     }
                                 }
@@ -339,7 +337,7 @@
                                         "summary": "Error",
                                         "value": {
                                             "statusCode": 404,
-                                            "message": "item list with id '101' not found",
+                                            "message": "item list with id '38c9c1a2-7c82-4eed-9880-4609bfb0ed41z' not found",
                                             "error": "Not Found"
                                         }
                                     }
@@ -874,6 +872,15 @@
                     "total_price": {
                         "type": "float",
                         "description": "Preço Total do Produto"
+                    }
+                }
+            },
+            "UserUpdate": {
+                "type": "object",
+                "properties": {
+                    "password": {
+                        "type": "string",
+                        "description": "Nova Senha do Usuário"
                     }
                 }
             }

@@ -6,7 +6,7 @@ export declare class UsersController {
     constructor(usersService: UsersService);
     create(createUserDto: CreateUserDto): Promise<void>;
     findAll(): import(".prisma/client").PrismaPromise<import(".prisma/client").Users[]>;
-    findOne(id: string): string;
-    update(id: string, updateUserDto: UpdateUserDto): string;
-    remove(id: string): string;
+    findOne(id: string): Promise<import(".prisma/client").Users>;
+    update(id: string, updateUserDto: UpdateUserDto): Promise<void>;
+    remove(id: string): Promise<void>;
 }

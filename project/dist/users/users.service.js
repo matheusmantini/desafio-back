@@ -17,6 +17,12 @@ let UsersService = class UsersService {
         this.usersRepository = usersRepository;
     }
     async create(createUserDto) {
+        const registeredUsers = await this.usersRepository.findAll();
+        for (let i = 0; i < registeredUsers.length; i++) {
+            if (registeredUsers[i].email === createUserDto.email) {
+                throw new common_1.ConflictException(`User with email '${registeredUsers[i].email}' already exists`);
+            }
+        }
         try {
             await this.usersRepository.create(createUserDto);
         }
@@ -27,14 +33,36 @@ let UsersService = class UsersService {
     findAll() {
         return this.usersRepository.findAll();
     }
-    findOne(id) {
-        return `This action returns a #${id} user`;
+    async findOne(id) {
+        const user = await this.usersRepository.findOne(id);
+        if (!user) {
+            throw new common_1.NotFoundException(`user with id '${id}' not found`);
+        }
+        return user;
     }
-    update(id, updateUserDto) {
-        return `This action updates a #${id} user`;
+    async update(id, updateUserDto) {
+        const user = await this.usersRepository.findOne(id);
+        if (!user) {
+            throw new common_1.NotFoundException(`user with id '${id}' not found`);
+        }
+        try {
+            await this.usersRepository.update(id, updateUserDto);
+        }
+        catch (_a) {
+            throw new common_1.InternalServerErrorException();
+        }
     }
-    remove(id) {
-        return `This action removes a #${id} user`;
+    async remove(id) {
+        const user = await this.usersRepository.findOne(id);
+        if (!user) {
+            throw new common_1.NotFoundException(`user with id '${id}' not found`);
+        }
+        try {
+            await this.usersRepository.delete(id);
+        }
+        catch (_a) {
+            throw new common_1.InternalServerErrorException();
+        }
     }
 };
 UsersService = __decorate([

@@ -19,7 +19,7 @@ let UsersRepository = class UsersRepository {
     findAll() {
         return this.prismaService.users.findMany();
     }
-    findByUniqueId(id) {
+    findOne(id) {
         return this.prismaService.users.findUnique({
             where: { id },
         });
