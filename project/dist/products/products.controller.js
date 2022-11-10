@@ -28,13 +28,13 @@ let ProductsController = class ProductsController {
         return this.productsService.findAll();
     }
     findOne(id) {
-        return this.productsService.findOne(+id);
+        return this.productsService.findOne(id);
     }
     update(id, updateProductDto) {
-        return this.productsService.update(+id, updateProductDto);
+        return this.productsService.update(id, updateProductDto);
     }
     remove(id) {
-        return this.productsService.remove(+id);
+        return this.productsService.remove(id);
     }
 };
 __decorate([

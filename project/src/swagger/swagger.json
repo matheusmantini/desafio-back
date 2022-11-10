@@ -283,10 +283,287 @@
         }
       }
     },
+    "/products": {
+      "post": {
+        "summary": "Cadastra um novo produto",
+        "tags": ["PRODUCTS"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Produto"
+              },
+              "examples": {
+                "Register": {
+                  "summary": "Cadastra um novo produto",
+                  "value": {
+                    "name": "Notebook Dell Inspiron 5406",
+                    "price": 4615.99,
+                    "image_url": "https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ23456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Produto cadastrado com sucesso!"
+          },
+          "409": {
+            "description": "É retornado quando já existe um produto cadastrado no sistema com o nome informado",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Error": {
+                    "summary": "Error",
+                    "value": {
+                      "statusCode": 409,
+                      "message": "product with name 'Notebook Dell Inspiron 5406' already exists",
+                      "error": "Conflict"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "É retornado quando ocorreu algum erro no servidor",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Error": {
+                    "summary": "Error",
+                    "value": {
+                      "statusCode": 500,
+                      "message": "Internal server error",
+                      "error": "Internal Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Retorna todos os produtos cadastrados",
+        "tags": ["PRODUCTS"],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Search": {
+                    "value": [
+                      {
+                        "id": "38c9c1a2-7c82-4eed-9880-4609bfb0ed41",
+                        "name": "João da Silva",
+                        "email": "joao.silva@email.com",
+                        "password": "123456"
+                      },
+                      {
+                        "id": "bfe45fc3-bea7-45e8-9a3a-575198faedf4",
+                        "name": "Maria Aparecida",
+                        "email": "maria.aparecida@email.com",
+                        "password": "654321"
+                      },
+                      {
+                        "id": "1e440c4b-9817-4c10-bb57-ce7c5310d095",
+                        "name": "José de Paula",
+                        "email": "jose.paula@email.com",
+                        "password": "senha123"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "summary": "Retorna um usuário específico de acordo com o ID informado",
+        "tags": ["PRODUCTS"],
+        "parameters": [
+          {
+            "name": "id",
+            "in":"path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Search": {
+                    "summary": "Retorna um usuário específico",
+                    "value": {
+                      "id": "38c9c1a2-7c82-4eed-9880-4609bfb0ed41",
+                      "name": "João da Silva",
+                      "email": "joao.silva@email.com",
+                      "password": "123456"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "É retornado quando um usuário não é encontrado com o id informado",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Error": {
+                    "summary": "Error",
+                    "value": {
+                      "statusCode": 404,
+                      "message": "user with id '38c9c1a2-7c82-4eed-9880-4609bfb0ed41z' not found",
+                      "error": "Not Found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Altera a senha do usuário",
+        "tags": ["PRODUCTS"],
+        "parameters": [
+          {
+            "name": "id",
+            "in":"path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdate"
+              },
+              "examples": {
+                "Update": {
+                  "summary": "Altera a senha do usuário",
+                  "value": {
+                    "password": "123456@"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Senha alterada com sucesso!"
+          },
+          "404": {
+            "description": "É retornado quando um usuário não é encontrado com o id informado",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Error": {
+                    "summary": "Error",
+                    "value": {
+                      "statusCode": 404,
+                      "message": "user with id '38c9c1a2-7c82-4eed-9880-4609bfb0ed41z' not found",
+                      "error": "Not Found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "É retornado quando ocorreu algum erro no servidor",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Error": {
+                    "summary": "Error",
+                    "value": {
+                      "statusCode": 500,
+                      "message": "Internal server error",
+                      "error": "Internal Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deleta um produto de acordo com o ID informado",
+        "tags": ["PRODUCTS"],
+        "parameters": [
+          {
+            "name": "id",
+            "in":"path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário deletado com sucesso!"
+          },
+          "404": {
+            "description": "É retornado quando um usuário não é encontrado",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Error": {
+                    "summary": "Error",
+                    "value": {
+                      "statusCode": 404,
+                      "message": "user with id '38c9c1a2-7c82-4eed-9880-4609bfb0ed41z' not found",
+                      "error": "Not Found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "É retornado quando ocorreu algum erro no servidor",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Error": {
+                    "summary": "Error",
+                    "value": {
+                      "statusCode": 500,
+                      "message": "Internal server error",
+                      "error": "Internal Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/orders": {
       "post": {
         "summary": "Cadastra um novo pedido",
-        "tags": ["PRODUTOS"],
+        "tags": ["COMPRAS"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -348,8 +625,8 @@
         }
       },
       "get": {
-        "summary": "Retorna todos os PRODUTOS cadastrados",
-        "tags": ["PRODUTOS"],
+        "summary": "Retorna todos os COMPRAS cadastrados",
+        "tags": ["COMPRAS"],
         "responses": {
           "200": {
             "description": "Sucesso",
@@ -393,7 +670,7 @@
     "/orders/{id}": {
       "get": {
         "summary": "Retorna um pedido específico de acordo com o ID informado",
-        "tags": ["PRODUTOS"],
+        "tags": ["COMPRAS"],
         "parameters": [
           {
             "name": "id",
@@ -448,7 +725,7 @@
       },
       "patch": {
         "summary": "Altera um pedido de acordo com o ID informado",
-        "tags": ["PRODUTOS"],
+        "tags": ["COMPRAS"],
         "parameters": [
           {
             "name": "id",
@@ -523,301 +800,7 @@
           }
         }
       }
-    },
-    "/items-list": {
-      "post": {
-        "summary": "Cadastra um novo item na lista de compras",
-        "tags": ["COMPRAS"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ListaItens"
-              },
-              "examples": {
-                "Register": {
-                  "summary": "Cadastra um novo item na lista de compras",
-                  "value": {
-                    "product_id": "4720c32a-9eee-4b63-8450-e175a536f924",
-                    "quantity": 5
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Item adicionado na lista de compras com sucesso!",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Create": {
-                    "value": {
-                      "id": "0b2f1698-a548-4175-b51e-1673a88e71d4",
-                      "name": "Água Mineral",
-                      "price": 3.45,
-                      "qty_stock": 25
-                    }
-                  }
-                }
-              }
-            }
-          },
-          
-          "404": {
-            "description": "É retornado quando um produto não é encontrado",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Error": {
-                    "summary": "Error",
-                    "value": {
-                      "statusCode": 404,
-                      "message": "item not found with id '0b2f1698-a548-4175-b51e-1673a88e71d4'",
-                      "error": "Not Found"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "get": {
-        "summary": "Retorna todos os itens de pedido cadastrados",
-        "tags": ["COMPRAS"],
-        "responses": {
-          "200": {
-            "description": "Sucesso",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Search All": {
-                    "summary": "Retorna todos os itens de pedido cadastrados",
-                    "value": [
-                      {
-                        "item_list_id": "6d3c0197-0261-43ee-be0a-65dd267d81cb",
-                        "product_id": "18",
-                        "product_name": "BEBIDA ENERGÉTICA VIBE 2L",
-                        "price": 8.99,
-                        "quantity": 5,
-                        "total": 44.95
-                      },
-                      {
-                        "item_list_id": "08fdcbbe-5037-4c05-adf4-5632402b8399",
-                        "product_id": "47",
-                        "product_name": "GARFO DESCARTÁVEL MASTER PRAFESTA CRYSTAL C/ 50UN",
-                        "price": 7.49,
-                        "quantity": 3,
-                        "total": 22.47
-                      },
-                      {
-                        "item_list_id": "181b56d1-96a6-4cb3-98fd-3869159243f0",
-                        "product_id": "54",
-                        "product_name": "PANO PARA LIMPEZA ALKLIN C/ 5UN",
-                        "price": 4.79,
-                        "quantity": 11,
-                        "total": 52.69
-                      }
-                    ]
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "É retornado quando não foi encontrado nenhum item de pedido",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Error": {
-                    "summary": "Error",
-                    "value": {
-                      "statusCode": 404,
-                      "message": "order with id '4720c32a-9skfjq23' not found",
-                      "error": "Not Found"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/items-list/{id}": {
-      "get": {
-        "summary": "Retorna um item de pedido cadastrado de acordo com o ID informado",
-        "tags": ["COMPRAS"],
-        "parameters": [
-          {
-            "name": "id",
-            "in":"path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Sucesso",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Register": {
-                    "summary": "Retorna um item específico de pedido cadastrado",
-                    "value": {
-                      "item_list_id": "ecf15621-ea89-40b8-bca4-5e5f93a598c3",
-                      "product_id": "19",
-                      "product_name": "ENERGÉTICO RED BULL ENERGY DRINK 250ML",
-                      "price": 7.29,
-                      "quantity": 2,
-                      "total": 14.58
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "É retornado quando não foi encontrado nenhum item de pedido com ID informado",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Error": {
-                    "summary": "Error",
-                    "value": {
-                      "statusCode": 404,
-                      "message": "item not found with id '77'",
-                      "error": "Not Found"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "patch": {
-        "summary": "Altera a quantidade de um item de pedido específico",
-        "tags": ["COMPRAS"],
-        "parameters": [
-          {
-            "name": "id",
-            "in":"path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ListaItensUpddate"
-              },
-              "examples": {
-                "Register": {
-                  "summary": "Altera a quantidade de um item de pedido específico",
-                  "value": {
-                    "quantity": 11
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Sucesso",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Register": {
-                    "summary": "Retorna o item de pedido com a alteração",
-                    "value": {
-                      "id": "3",
-                      "product_id": "48",
-                      "quantity": 5
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "É retornado quando um item de pedido não é encontrado",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Error": {
-                    "summary": "Error",
-                    "value": {
-                      "statusCode": 404,
-                      "message": "list item with id '7cb1cc21-5b60-438a-9c54-c52c8ac5ee1f' not found",
-                      "error": "Not Found"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "summary": "Deleta um item de pedido de acordo com o ID informado",
-        "tags": ["COMPRAS"],
-        "parameters": [
-          {
-            "name": "id",
-            "in":"path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Sucesso",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Register": {
-                    "summary": "Deleta um item de pedido específico",
-                    "value": {
-                      "id": "3",
-                      "product_id": "48",
-                      "quantity": 5
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "É retornado quando um item de pedido não é encontrado",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Error": {
-                    "summary": "Error",
-                    "value": {
-                      "statusCode": 404,
-                      "message": "list item with id '7cb1cc21-5b60-438a-9c54-c52c8ac5ee1f' not found",
-                      "error": "Not Found"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+    }    
   },
   "components": {
     "schemas": {
