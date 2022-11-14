@@ -1,5 +1,4 @@
-import { CreatePurchaseDto } from './create-purchase.dto';
-declare const UpdatePurchaseDto_base: import("@nestjs/common").Type<Partial<CreatePurchaseDto>>;
-export declare class UpdatePurchaseDto extends UpdatePurchaseDto_base {
+export declare class UpdatePurchaseDto {
+    price?: number;
+    image_url?: string;
 }
-export {};

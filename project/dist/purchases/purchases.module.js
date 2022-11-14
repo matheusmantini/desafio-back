@@ -11,13 +11,16 @@ const common_1 = require("@nestjs/common");
 const purchases_service_1 = require("./purchases.service");
 const purchases_controller_1 = require("./purchases.controller");
 const prisma_module_1 = require("../prisma/prisma.module");
+const purchases_repository_1 = require("./purchases.repository");
+const items_list_repository_1 = require("../items-list/items-list.repository");
+const users_repository_1 = require("../users/users.repository");
 let PurchasesModule = class PurchasesModule {
 };
 PurchasesModule = __decorate([
     (0, common_1.Module)({
         imports: [prisma_module_1.PrismaModule],
         controllers: [purchases_controller_1.PurchasesController],
-        providers: [purchases_service_1.PurchasesService]
+        providers: [purchases_service_1.PurchasesService, purchases_repository_1.PurchasesRepository, items_list_repository_1.ItemsListRepository, users_repository_1.UsersRepository]
     })
 ], PurchasesModule);
 exports.PurchasesModule = PurchasesModule;

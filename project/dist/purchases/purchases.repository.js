@@ -25,12 +25,6 @@ let PurchasesRepository = class PurchasesRepository {
     create(purchases) {
         return this.prismaService.purchases.create({ data: purchases });
     }
-    update(id, purchases) {
-        return this.prismaService.purchases.update({
-            where: { id },
-            data: purchases,
-        });
-    }
     delete(id) {
         return this.prismaService.purchases.delete({ where: { id } });
     }
