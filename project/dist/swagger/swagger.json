@@ -857,23 +857,43 @@
                                         "value": [
                                             {
                                                 "id": "3f910bf5-3e47-4eb8-b8e1-ce6d682400f4",
-                                                "user_id": "f6c7b3c1-6a72-40b4-8c26-aee7331f4f6e",
+                                                "client_name": "Maria da Silva",
                                                 "purchase_date": "2022-11-14T11:12:47.328Z",
-                                                "items_list_id": [
-                                                    "03e34bba-9d4e-4062-bbe7-774807647bee",
-                                                    "3b61c273-e69f-465a-a07a-1f562ee4ef4d"
+                                                "items_list": [
+                                                    {
+                                                        "name": "Notebook Dell Inspiron 5406",
+                                                        "price": 4615.99,
+                                                        "quantity": 3,
+                                                        "total_item": 13847.97
+                                                    },
+                                                    {
+                                                        "name": "Mouse sem fio Dell - WM126 (preto)",
+                                                        "price": 88,
+                                                        "quantity": 7,
+                                                        "total_item": 616
+                                                    }
                                                 ],
-                                                "total_price": 14463.97
+                                                "total_purchase": 14463.97
                                             },
                                             {
                                                 "id": "f0667e40-44f8-4e63-bbd8-01628fc65161",
-                                                "user_id": "fc026a4e-48bb-40d0-bbda-737da1241d74",
+                                                "client_name": "João da Silva",
                                                 "purchase_date": "2022-11-14T11:15:32.571Z",
-                                                "items_list_id": [
-                                                    "9de7e2c6-aac5-4f9e-8985-a924b2cea1a0",
-                                                    "2b41eb97-9dd1-48a4-a4cf-d7ef90193ba1"
+                                                "items_list": [
+                                                    {
+                                                        "name": "Teclado multimídia da Dell - KB216",
+                                                        "price": 199.89,
+                                                        "quantity": 7,
+                                                        "total_item": 1399.23
+                                                    },
+                                                    {
+                                                        "name": "Teclado multimídia da Dell - KB216",
+                                                        "price": 199.89,
+                                                        "quantity": 13,
+                                                        "total_item": 2598.57
+                                                    }
                                                 ],
-                                                "total_price": 3997.8
+                                                "total_purchase": 3997.8
                                             }
                                         ]
                                     }
@@ -908,13 +928,23 @@
                                         "summary": "Retorna uma compra específica",
                                         "value": {
                                             "id": "3f910bf5-3e47-4eb8-b8e1-ce6d682400f4",
-                                            "user_id": "f6c7b3c1-6a72-40b4-8c26-aee7331f4f6e",
+                                            "client_name": "Maria da Silva",
                                             "purchase_date": "2022-11-14T11:12:47.328Z",
-                                            "items_list_id": [
-                                                "03e34bba-9d4e-4062-bbe7-774807647bee",
-                                                "3b61c273-e69f-465a-a07a-1f562ee4ef4d"
+                                            "items_list": [
+                                                {
+                                                    "name": "Notebook Dell Inspiron 5406",
+                                                    "price": 4615.99,
+                                                    "quantity": 3,
+                                                    "total_item": 13847.97
+                                                },
+                                                {
+                                                    "name": "Mouse sem fio Dell - WM126 (preto)",
+                                                    "price": 88,
+                                                    "quantity": 7,
+                                                    "total_item": 616
+                                                }
                                             ],
-                                            "total_price": 14463.97
+                                            "total_purchase": 14463.97
                                         }
                                     }
                                 }

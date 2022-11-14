@@ -46,15 +46,57 @@ let PurchasesService = class PurchasesService {
             throw new common_1.InternalServerErrorException();
         }
     }
-    findAll() {
-        return this.purchasesRepository.findAll();
+    async findAll() {
+        const purchases = await this.purchasesRepository.findAll();
+        let purchasesWithInfo = [];
+        for (let i = 0; i < purchases.length; i++) {
+            const userInfo = await this.usersRepository.findOne(purchases[i].user_id);
+            const itemsListDetails = [];
+            for (let j = 0; j < purchases[i].items_list_id.length; j++) {
+                const itemsList = await this.itemListRepository.findOne(purchases[i].items_list_id[j]);
+                const itemsListInfo = {
+                    name: itemsList.product_name,
+                    price: itemsList.product_price,
+                    quantity: itemsList.quantity,
+                    total_item: itemsList.product_price * itemsList.quantity,
+                };
+                itemsListDetails.push(itemsListInfo);
+            }
+            const itemsListWithInfo = {
+                id: purchases[i].id,
+                client_name: userInfo.name,
+                purchase_date: purchases[i].purchase_date,
+                items_list: itemsListDetails,
+                total_purchase: purchases[i].total_price,
+            };
+            purchasesWithInfo.push(itemsListWithInfo);
+        }
+        return purchasesWithInfo;
     }
     async findOne(id) {
         const purchase = await this.purchasesRepository.findOne(id);
         if (!purchase) {
             throw new common_1.NotFoundException(`purchase with id '${id}' not found`);
         }
-        return purchase;
+        const userInfo = await this.usersRepository.findOne(purchase.user_id);
+        const itemsListDetails = [];
+        for (let i = 0; i < purchase.items_list_id.length; i++) {
+            const itemsList = await this.itemListRepository.findOne(purchase.items_list_id[i]);
+            const itemsListInfo = {
+                name: itemsList.product_name,
+                price: itemsList.product_price,
+                quantity: itemsList.quantity,
+                total_item: itemsList.product_price * itemsList.quantity,
+            };
+            itemsListDetails.push(itemsListInfo);
+        }
+        return {
+            id: purchase.id,
+            client_name: userInfo.name,
+            purchase_date: purchase.purchase_date,
+            items_list: itemsListDetails,
+            total_purchase: purchase.total_price,
+        };
     }
     async remove(id) {
         const uniquePurchase = await this.purchasesRepository.findOne(id);

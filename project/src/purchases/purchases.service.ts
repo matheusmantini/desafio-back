@@ -1,12 +1,15 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
-import { ItemsListRepository } from 'src/items-list/items-list.repository';
-import { UsersRepository } from 'src/users/users.repository';
-import { CreatePurchaseDto } from './dto/create-purchase.dto';
-import { PurchasesRepository } from './purchases.repository';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from "@nestjs/common";
+import { ItemsListRepository } from "src/items-list/items-list.repository";
+import { UsersRepository } from "src/users/users.repository";
+import { CreatePurchaseDto } from "./dto/create-purchase.dto";
+import { PurchasesRepository } from "./purchases.repository";
 
 @Injectable()
 export class PurchasesService {
-
   constructor(
     private readonly purchasesRepository: PurchasesRepository,
     private readonly itemListRepository: ItemsListRepository,
@@ -17,21 +20,21 @@ export class PurchasesService {
     let totalPurchase = 0;
 
     const user = await this.usersRepository.findOne(createPurchaseDto.user_id);
-      
+
     if (!user) {
       throw new NotFoundException(
-        `user not found with id '${createPurchaseDto.user_id}'`,
+        `user not found with id '${createPurchaseDto.user_id}'`
       );
     }
 
     for (let i = 0; i < createPurchaseDto.items_list_id.length; i++) {
       const purchaseItem = await this.itemListRepository.findOne(
-        createPurchaseDto.items_list_id[i],
+        createPurchaseDto.items_list_id[i]
       );
-      
+
       if (!purchaseItem) {
         throw new NotFoundException(
-          `item not found with id '${createPurchaseDto.items_list_id[i]}'`,
+          `item not found with id '${createPurchaseDto.items_list_id[i]}'`
         );
       }
 
@@ -52,8 +55,40 @@ export class PurchasesService {
     }
   }
 
-  findAll() {
-    return this.purchasesRepository.findAll();
+  async findAll() {
+    const purchases = await this.purchasesRepository.findAll();
+
+    let purchasesWithInfo = [];
+
+    for (let i = 0; i < purchases.length; i++) {
+      const userInfo = await this.usersRepository.findOne(purchases[i].user_id);
+      const itemsListDetails = [];
+
+      for (let j = 0; j < purchases[i].items_list_id.length; j++) {
+        const itemsList = await this.itemListRepository.findOne(
+          purchases[i].items_list_id[j]
+        );
+
+        const itemsListInfo = {
+          name: itemsList.product_name,
+          price: itemsList.product_price,
+          quantity: itemsList.quantity,
+          total_item: itemsList.product_price * itemsList.quantity,
+        };
+        itemsListDetails.push(itemsListInfo);
+      }
+
+      const itemsListWithInfo = {
+        id: purchases[i].id,
+        client_name: userInfo.name,
+        purchase_date: purchases[i].purchase_date,
+        items_list: itemsListDetails,
+        total_purchase: purchases[i].total_price,
+      };
+
+      purchasesWithInfo.push(itemsListWithInfo);
+    }
+    return purchasesWithInfo;
   }
 
   async findOne(id: string) {
@@ -63,7 +98,30 @@ export class PurchasesService {
       throw new NotFoundException(`purchase with id '${id}' not found`);
     }
 
-    return purchase;
+    const userInfo = await this.usersRepository.findOne(purchase.user_id);
+    const itemsListDetails = [];
+
+    for (let i = 0; i < purchase.items_list_id.length; i++) {
+      const itemsList = await this.itemListRepository.findOne(
+        purchase.items_list_id[i]
+      );
+
+      const itemsListInfo = {
+        name: itemsList.product_name,
+        price: itemsList.product_price,
+        quantity: itemsList.quantity,
+        total_item: itemsList.product_price * itemsList.quantity,
+      };
+      itemsListDetails.push(itemsListInfo);
+    }
+
+    return {
+      id: purchase.id,
+      client_name: userInfo.name,
+      purchase_date: purchase.purchase_date,
+      items_list: itemsListDetails,
+      total_purchase: purchase.total_price,
+    };
   }
 
   async remove(id: string) {

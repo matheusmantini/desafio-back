@@ -4,7 +4,13 @@ export declare class PurchasesController {
     private readonly purchasesService;
     constructor(purchasesService: PurchasesService);
     create(createPurchaseDto: CreatePurchaseDto): Promise<void>;
-    findAll(): import(".prisma/client").PrismaPromise<import(".prisma/client").Purchases[]>;
-    findOne(id: string): Promise<import(".prisma/client").Purchases>;
+    findAll(): Promise<any[]>;
+    findOne(id: string): Promise<{
+        id: string;
+        client_name: string;
+        purchase_date: Date;
+        items_list: any[];
+        total_purchase: number;
+    }>;
     remove(id: string): Promise<void>;
 }
