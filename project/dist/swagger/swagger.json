@@ -561,6 +561,264 @@
                 }
             }
         },
+        "/items-list": {
+            "post": {
+                "summary": "Cadastra um novo item para a compra",
+                "tags": ["ITENS DA COMPRA"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ItemList"
+                            },
+                            "examples": {
+                                "Register": {
+                                    "summary": "Cadastra um novo item para a compra",
+                                    "value": {
+                                        "product_id": "87ac3c4f-6c31-4ece-b627-1e0961c062eb",
+                                        "quantity": 3
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "ItemList cadastrado com sucesso"
+                    },
+                    "404": {
+                        "description": "É retornado quando um item da lista de ID's não é contrado",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Error": {
+                                        "summary": "Error",
+                                        "value": {
+                                            "statusCode": 404,
+                                            "message": "item list with id '38c9c1a2-7c82-4eed-9880-4609bfb0ed41z' not found",
+                                            "error": "Not Found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Retorna todos os COMPRAS cadastrados",
+                "tags": ["ITENS DA COMPRA"],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Search All": {
+                                        "value": [
+                                            {
+                                                "id": "4720c32a-9eee-4b63-8450-e175a536f924",
+                                                "client_name": "João",
+                                                "delivery_date": "2022-10-05T12:09:04.374Z",
+                                                "shopping_list": [
+                                                    {
+                                                        "product": "COLHER DESCARTÁVEL MASTER PRAFESTA BRANCA C/ 50UN",
+                                                        "quantity": 3,
+                                                        "price": 5.99
+                                                    },
+                                                    {
+                                                        "product": "GARFO DESCARTÁVEL MASTER PRAFESTA CRYSTAL C/ 50UN",
+                                                        "quantity": 2,
+                                                        "price": 7.49
+                                                    },
+                                                    {
+                                                        "product": "FACA DESCARTÁVEL MASTER PRAFESTA CRYSTAL C/ 50UN",
+                                                        "quantity": 5,
+                                                        "price": 8.99
+                                                    }
+                                                ],
+                                                "total_amount": 77.9
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/items-list/{id}": {
+            "get": {
+                "summary": "Retorna um pedido específico de acordo com o ID informado",
+                "tags": ["ITENS DA COMPRA"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Register": {
+                                        "summary": "Retorna um pedido específico",
+                                        "value": {
+                                            "id": "4720c32a-9eee-4b63-8450-e175a536f924",
+                                            "client_name": "João",
+                                            "delivery_date": "2022-10-05T12:09:04.374Z",
+                                            "items_list_id": [
+                                                "1",
+                                                "2",
+                                                "3"
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "É retornado quando um pedido não é encontrado",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Error": {
+                                        "summary": "Error",
+                                        "value": {
+                                            "statusCode": 404,
+                                            "message": "order with id '4720c32a-9skfjq23' not found",
+                                            "error": "Not Found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Altera um pedido de acordo com o ID informado",
+                "tags": ["ITENS DA COMPRA"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Purchase"
+                            },
+                            "examples": {
+                                "Register": {
+                                    "summary": "Altera um pedido",
+                                    "value": {
+                                        "client_name": "João",
+                                        "delivery_date": "2022-10-05T12:09:04.374Z",
+                                        "items_list_id": [
+                                            "1",
+                                            "2",
+                                            "3"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Register": {
+                                        "summary": "Mostra o pedido após alteração",
+                                        "value": {
+                                            "id": "4720c32a-9eee-4b63-8450-e175a536f924",
+                                            "client_name": "João",
+                                            "delivery_date": "2022-10-05T12:09:04.374Z",
+                                            "items_list_id": [
+                                                "1",
+                                                "3"
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "É retornado quando um produto não é encontrado",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Error": {
+                                        "summary": "Error",
+                                        "value": {
+                                            "statusCode": 404,
+                                            "message": "product with id '101' not found",
+                                            "error": "Not Found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deleta um item da compra de acordo com o ID informado",
+                "tags": ["ITENS DA COMPRA"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso"
+                    },
+                    "404": {
+                        "description": "É retornado quando um item da compra não é encontrado",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Error": {
+                                        "summary": "Error",
+                                        "value": {
+                                            "statusCode": 404,
+                                            "message": "itemList with id '4720c32a-9eee-4b63-8450-e175a536f924' not found",
+                                            "error": "Not Found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/purchases": {
             "post": {
                 "summary": "Cadastra uma nova compra",
@@ -857,6 +1115,19 @@
                     "total_price": {
                         "type": "float",
                         "description": "Preço Total do Produto"
+                    }
+                }
+            },
+            "ItemList": {
+                "type": "object",
+                "properties": {
+                    "product_id": {
+                        "type": "string",
+                        "description": "ID do ItemList"
+                    },
+                    "quantity": {
+                        "type": "int",
+                        "description": "Quantidade do ItemList"
                     }
                 }
             },

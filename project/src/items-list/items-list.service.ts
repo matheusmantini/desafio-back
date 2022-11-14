@@ -1,28 +1,32 @@
-import { Injectable } from '@nestjs/common';
-import { CreatePurchaseDto } from './dto/create-purchase.dto';
-import { UpdatePurchaseDto } from './dto/update-purchase.dto';
-import { PurchasesRepository } from './purchases.repository';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from "@nestjs/common";
+import { ProductsRepository } from "src/products/products.repository";
+import { CreateItemListDto, UpdateItemListDto } from "./dto";
+import { ItemsListRepository } from "./items-list.repository";
 
 @Injectable()
-export class PurchasesService {
-/* 
+export class ItemsListService {
   constructor(
-    private readonly purchasesRepository: PurchasesRepository,
+    private readonly itemsListRepository: ItemsListRepository,
+    private readonly productsRepository: ProductsRepository
   ) {}
 
-  async create(createPurchaseDto: CreatePurchaseDto) {
-    const product = await this.purchasesRepository.findOne(
-      createPurchaseDto
+  async create(createItemsListDto: CreateItemListDto) {
+    const product = await this.productsRepository.findOne(
+      createItemsListDto.product_id
     );
 
     if (!product) {
       throw new NotFoundException(
-        `product with id '${createPurchaseDto.product_id}' not found`
+        `product with id '${createItemsListDto.product_id}' not found`
       );
     }
 
     const body = {
-      product_id: createPurchaseDto.product_id,
+      product_id: createItemsListDto.product_id,
       product_name: product.name,
       product_price: product.price,
       quantity: createItemsListDto.quantity,
@@ -49,7 +53,7 @@ export class PurchasesService {
     return itemList;
   }
 
-  async update(id: string, updatePurchaseDto: UpdatePurchaseDto) {
+  async update(id: string, updateItemsListDto: UpdateItemListDto) {
     const uniqueItemList = await this.itemsListRepository.findOne(id);
 
     if (!uniqueItemList) {
@@ -75,5 +79,5 @@ export class PurchasesService {
     } catch {
       throw new InternalServerErrorException();
     }
-  } */
+  }
 }

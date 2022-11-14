@@ -5,7 +5,7 @@ import { UpdatePurchaseDto } from './dto/update-purchase.dto';
 
 @Controller('purchases')
 export class PurchasesController {
-  constructor(private readonly purchasesService: PurchasesService) {}
+  /* constructor(private readonly purchasesService: PurchasesService) {}
 
   @Post()
   create(@Body() createPurchaseDto: CreatePurchaseDto) {
@@ -19,16 +19,16 @@ export class PurchasesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.purchasesService.findOne(+id);
+    return this.purchasesService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePurchaseDto: UpdatePurchaseDto) {
-    return this.purchasesService.update(+id, updatePurchaseDto);
+    return this.purchasesService.update(id, updatePurchaseDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.purchasesService.remove(+id);
-  }
+    return this.purchasesService.remove(id);
+  } */
 }

@@ -9,21 +9,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PurchasesService = void 0;
 const common_1 = require("@nestjs/common");
 let PurchasesService = class PurchasesService {
-    create(createPurchaseDto) {
-        return 'This action adds a new purchase';
-    }
-    findAll() {
-        return `This action returns all purchases`;
-    }
-    findOne(id) {
-        return `This action returns a #${id} purchase`;
-    }
-    update(id, updatePurchaseDto) {
-        return `This action updates a #${id} purchase`;
-    }
-    remove(id) {
-        return `This action removes a #${id} purchase`;
-    }
 };
 PurchasesService = __decorate([
     (0, common_1.Injectable)()
