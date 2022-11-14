@@ -45,6 +45,9 @@ let ProductsService = class ProductsService {
         if (!product) {
             throw new common_1.NotFoundException(`product with id '${id}' not found`);
         }
+        if (!updateProductDto || (!updateProductDto.image_url && !updateProductDto.price)) {
+            throw new common_1.BadRequestException('Choose at least one parameter: price or image_url');
+        }
         try {
             await this.productsRepository.update(id, updateProductDto);
         }

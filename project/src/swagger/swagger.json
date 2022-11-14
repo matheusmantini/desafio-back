@@ -230,7 +230,7 @@
         }
       },
       "delete": {
-        "summary": "Deleta um produto de acordo com o ID informado",
+        "summary": "Deleta um usuário específico de acordo com o ID informado",
         "tags": ["USUÁRIOS"],
         "parameters": [
           {
@@ -437,7 +437,7 @@
         }
       },
       "patch": {
-        "summary": "Altera o preço ou url da imagem do produto",
+        "summary": "Altera o preço ou url da imagem de um produto específico de acordo com o ID informado",
         "tags": ["PRODUCTS"],
         "parameters": [
           {
@@ -508,7 +508,7 @@
         }
       },
       "delete": {
-        "summary": "Deleta um produto de acordo com o ID informado",
+        "summary": "Deleta um produto específico de acordo com o ID informado",
         "tags": ["PRODUCTS"],
         "parameters": [
           {
@@ -607,7 +607,7 @@
         }
       },
       "get": {
-        "summary": "Retorna todos os COMPRAS cadastrados",
+        "summary": "Retorna todos os itens para compra cadastrados",
         "tags": ["ITENS DA COMPRA"],
         "responses": {
           "200": {
@@ -618,27 +618,32 @@
                   "Search All": {
                     "value": [
                       {
-                        "id": "4720c32a-9eee-4b63-8450-e175a536f924",
-                        "client_name": "João",
-                        "delivery_date": "2022-10-05T12:09:04.374Z",
-                        "shopping_list": [
-                          {
-                            "product": "COLHER DESCARTÁVEL MASTER PRAFESTA BRANCA C/ 50UN",
-                            "quantity": 3,
-                            "price": 5.99
-                          },
-                          {
-                            "product": "GARFO DESCARTÁVEL MASTER PRAFESTA CRYSTAL C/ 50UN",
-                            "quantity": 2,
-                            "price": 7.49
-                          },
-                          {
-                            "product": "FACA DESCARTÁVEL MASTER PRAFESTA CRYSTAL C/ 50UN",
-                            "quantity": 5,
-                            "price": 8.99
-                          }
-                        ],
-                        "total_amount": 77.9
+                        "id": "03e34bba-9d4e-4062-bbe7-774807647bee",
+                        "product_id": "94526e80-e114-4db0-b3ae-249c1e806a51",
+                        "product_name": "Notebook Dell Inspiron 5406",
+                        "product_price": 4615.99,
+                        "quantity": 3
+                      },
+                      {
+                        "id": "3b61c273-e69f-465a-a07a-1f562ee4ef4d",
+                        "product_id": "1efc0c44-31ba-4f33-a0c2-33ff288e2abc",
+                        "product_name": "Mouse sem fio Dell - WM126 (preto)",
+                        "product_price": 88,
+                        "quantity": 7
+                      },
+                      {
+                        "id": "9de7e2c6-aac5-4f9e-8985-a924b2cea1a0",
+                        "product_id": "60391b52-68c1-4936-895c-5953eca47ed9",
+                        "product_name": "Teclado multimídia da Dell - KB216",
+                        "product_price": 199.89,
+                        "quantity": 7
+                      },
+                      {
+                        "id": "2b41eb97-9dd1-48a4-a4cf-d7ef90193ba1",
+                        "product_id": "60391b52-68c1-4936-895c-5953eca47ed9",
+                        "product_name": "Teclado multimídia da Dell - KB216",
+                        "product_price": 199.89,
+                        "quantity": 8
                       }
                     ]
                   }
@@ -651,7 +656,7 @@
     },
     "/items-list/{id}": {
       "get": {
-        "summary": "Retorna um pedido específico de acordo com o ID informado",
+        "summary": "Retorna um item para compra específico de acordo com o ID informado",
         "tags": ["ITENS DA COMPRA"],
         "parameters": [
           {
@@ -665,29 +670,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Sucesso",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Register": {
-                    "summary": "Retorna um pedido específico",
-                    "value": {
-                      "id": "4720c32a-9eee-4b63-8450-e175a536f924",
-                      "client_name": "João",
-                      "delivery_date": "2022-10-05T12:09:04.374Z",
-                      "items_list_id": [
-                        "1",
-                        "2",
-                        "3"
-                      ]
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Sucesso"
           },
           "404": {
-            "description": "É retornado quando um pedido não é encontrado",
+            "description": "É retornado quando um item para compra não é encontrado",
             "content": {
               "application/json": {
                 "examples": {
@@ -695,7 +681,7 @@
                     "summary": "Error",
                     "value": {
                       "statusCode": 404,
-                      "message": "order with id '4720c32a-9skfjq23' not found",
+                      "message": "item-list with id '4720c32a-9skfjq23' not found",
                       "error": "Not Found"
                     }
                   }
@@ -706,7 +692,7 @@
         }
       },
       "patch": {
-        "summary": "Altera um pedido de acordo com o ID informado",
+        "summary": "Altera um item para compra específico de acordo com o ID informado",
         "tags": ["ITENS DA COMPRA"],
         "parameters": [
           {
@@ -722,19 +708,13 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Purchase"
+                "$ref": "#/components/schemas/ItemListUpdate"
               },
               "examples": {
                 "Register": {
-                  "summary": "Altera um pedido",
+                  "summary": "Altera um item para compra",
                   "value": {
-                    "client_name": "João",
-                      "delivery_date": "2022-10-05T12:09:04.374Z",
-                      "items_list_id": [
-                        "1",
-                        "2",
-                        "3"
-                      ]
+                    "quantity": 5
                   }
                 }
               }
@@ -743,37 +723,19 @@
         },
         "responses": {
           "200": {
-            "description": "Sucesso",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Register": {
-                    "summary": "Mostra o pedido após alteração",
-                    "value": {
-                      "id": "4720c32a-9eee-4b63-8450-e175a536f924",
-                      "client_name": "João",
-                      "delivery_date": "2022-10-05T12:09:04.374Z",
-                      "items_list_id": [
-                        "1",
-                        "3"
-                      ]
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Quantidade editada com sucesso"
           },
-          "404": {
-            "description": "É retornado quando um produto não é encontrado",
+          "400": {
+            "description": "É retornado quando o campo quantidade estiver vazio",
             "content": {
               "application/json": {
                 "examples": {
                   "Error": {
                     "summary": "Error",
                     "value": {
-                      "statusCode": 404,
-                      "message": "product with id '101' not found",
-                      "error": "Not Found"
+                      "statusCode": 400,
+                      "message": "quantity should not be empty, quantity must be a number conforming to the specified constraints",
+                      "error": "Bad Request"
                     }
                   }
                 }
@@ -783,7 +745,7 @@
         }
       },
       "delete": {
-        "summary": "Deleta um item da compra de acordo com o ID informado",
+        "summary": "Deleta um item para compra específico de acordo com o ID informado",
         "tags": ["ITENS DA COMPRA"],
         "parameters": [
           {
@@ -797,7 +759,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Sucesso"
+            "description": "Item da compra deletado com sucesso"
           },
           "404": {
             "description": "É retornado quando um item da compra não é encontrado",
@@ -883,7 +845,7 @@
         }
       },
       "get": {
-        "summary": "Retorna todos os COMPRAS cadastrados",
+        "summary": "Retorna todas as compras cadastradas",
         "tags": ["COMPRAS"],
         "responses": {
           "200": {
@@ -894,27 +856,24 @@
                   "Search All": {
                     "value": [
                       {
-                        "id": "4720c32a-9eee-4b63-8450-e175a536f924",
-                        "client_name": "João",
-                        "delivery_date": "2022-10-05T12:09:04.374Z",
-                        "shopping_list": [
-                          {
-                            "product": "COLHER DESCARTÁVEL MASTER PRAFESTA BRANCA C/ 50UN",
-                            "quantity": 3,
-                            "price": 5.99
-                          },
-                          {
-                            "product": "GARFO DESCARTÁVEL MASTER PRAFESTA CRYSTAL C/ 50UN",
-                            "quantity": 2,
-                            "price": 7.49
-                          },
-                          {
-                            "product": "FACA DESCARTÁVEL MASTER PRAFESTA CRYSTAL C/ 50UN",
-                            "quantity": 5,
-                            "price": 8.99
-                          }
+                        "id": "3f910bf5-3e47-4eb8-b8e1-ce6d682400f4",
+                        "user_id": "f6c7b3c1-6a72-40b4-8c26-aee7331f4f6e",
+                        "purchase_date": "2022-11-14T11:12:47.328Z",
+                        "items_list_id": [
+                          "03e34bba-9d4e-4062-bbe7-774807647bee",
+                          "3b61c273-e69f-465a-a07a-1f562ee4ef4d"
                         ],
-                        "total_amount": 77.9
+                        "total_price": 14463.97
+                      },
+                      {
+                        "id": "f0667e40-44f8-4e63-bbd8-01628fc65161",
+                        "user_id": "fc026a4e-48bb-40d0-bbda-737da1241d74",
+                        "purchase_date": "2022-11-14T11:15:32.571Z",
+                        "items_list_id": [
+                          "9de7e2c6-aac5-4f9e-8985-a924b2cea1a0",
+                          "2b41eb97-9dd1-48a4-a4cf-d7ef90193ba1"
+                        ],
+                        "total_price": 3997.8
                       }
                     ]
                   }
@@ -927,7 +886,7 @@
     },
     "/purchases/{id}": {
       "get": {
-        "summary": "Retorna um pedido específico de acordo com o ID informado",
+        "summary": "Retorna uma compra específica de acordo com o ID informado",
         "tags": ["COMPRAS"],
         "parameters": [
           {
@@ -945,17 +904,17 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "Register": {
-                    "summary": "Retorna um pedido específico",
+                  "SearchUnique": {
+                    "summary": "Retorna uma compra específica",
                     "value": {
-                      "id": "4720c32a-9eee-4b63-8450-e175a536f924",
-                      "client_name": "João",
-                      "delivery_date": "2022-10-05T12:09:04.374Z",
+                      "id": "3f910bf5-3e47-4eb8-b8e1-ce6d682400f4",
+                      "user_id": "f6c7b3c1-6a72-40b4-8c26-aee7331f4f6e",
+                      "purchase_date": "2022-11-14T11:12:47.328Z",
                       "items_list_id": [
-                        "1",
-                        "2",
-                        "3"
-                      ]
+                        "03e34bba-9d4e-4062-bbe7-774807647bee",
+                        "3b61c273-e69f-465a-a07a-1f562ee4ef4d"
+                      ],
+                      "total_price": 14463.97
                     }
                   }
                 }
@@ -963,7 +922,7 @@
             }
           },
           "404": {
-            "description": "É retornado quando um pedido não é encontrado",
+            "description": "É retornado quando uma compra não é encontrada",
             "content": {
               "application/json": {
                 "examples": {
@@ -971,7 +930,7 @@
                     "summary": "Error",
                     "value": {
                       "statusCode": 404,
-                      "message": "order with id '4720c32a-9skfjq23' not found",
+                      "message": "purchase with id '4720c32a-9skfjq23' not found",
                       "error": "Not Found"
                     }
                   }
@@ -982,7 +941,7 @@
         }
       },
       "delete": {
-        "summary": "Deleta um item da compra de acordo com o ID informado",
+        "summary": "Deleta uma compra específica de acordo com o ID informado",
         "tags": ["COMPRAS"],
         "parameters": [
           {
@@ -996,10 +955,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Sucesso"
+            "description": "Compra deletada com sucesso"
           },
           "404": {
-            "description": "É retornado quando um item da compra não é encontrado",
+            "description": "É retornado quando uma compra não é encontrada",
             "content": {
               "application/json": {
                 "examples": {
@@ -1007,7 +966,7 @@
                     "summary": "Error",
                     "value": {
                       "statusCode": 404,
-                      "message": "itemList with id '4720c32a-9eee-4b63-8450-e175a536f924' not found",
+                      "message": "purchase with id '4720c32a-9skfjq23' not found",
                       "error": "Not Found"
                     }
                   }
@@ -1108,6 +1067,15 @@
           "image_url": {
             "type": "string",
             "description": "Nova url da imagem do Produto"
+          }
+        }
+      },
+      "ItemListUpdate": {
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "type": "number",
+            "description": "Nova quantidade do item da compra"
           }
         }
       }

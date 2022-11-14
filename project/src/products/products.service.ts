@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsRepository } from './products.repository';
@@ -45,6 +45,10 @@ export class ProductsService {
 
     if(!product){
       throw new NotFoundException(`product with id '${id}' not found`);
+    }
+
+    if(!updateProductDto || (!updateProductDto.image_url && !updateProductDto.price)){
+      throw new BadRequestException('Choose at least one parameter: price or image_url');
     }
 
     try {
