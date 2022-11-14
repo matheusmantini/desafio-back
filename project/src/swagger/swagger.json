@@ -22,7 +22,9 @@
                   "value": {
                     "name": "João da Silva",
                     "email": "joao.silva@email.com",
-                    "password": "123456"
+                    "password": "123456",
+                    "zip_code": "34006042",
+                    "address_number": "16"
                   }
                 }
               }
@@ -971,6 +973,14 @@
           "password": {
             "type": "string",
             "description": "Senha do usuário"
+          },
+          "zip_code": {
+            "type": "string",
+            "description": "CEP do usuário"
+          },
+          "address_number": {
+            "type": "string",
+            "description": "Número do endereço do usuário"
           }
         }
       },

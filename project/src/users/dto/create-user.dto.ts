@@ -12,4 +12,12 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   password: string;
+
+  @IsString()
+  @IsNotEmpty()
+  zip_code: string;
+
+  @IsString()
+  @IsNotEmpty()
+  address_number: string;
 }
