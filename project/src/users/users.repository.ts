@@ -27,8 +27,4 @@ export class UsersRepository {
     });
   }
 
-  delete(id: string) {
-    return this.prismaService.users.delete({ where: { id } });
-  }
-
 }

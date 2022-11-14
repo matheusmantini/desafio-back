@@ -8,5 +8,4 @@ export declare class UsersController {
     findAll(): import(".prisma/client").PrismaPromise<import(".prisma/client").Users[]>;
     findOne(id: string): Promise<import(".prisma/client").Users>;
     update(id: string, updateUserDto: UpdateUserDto): Promise<void>;
-    remove(id: string): Promise<void>;
 }

@@ -228,59 +228,6 @@
             }
           }
         }
-      },
-      "delete": {
-        "summary": "Deleta um usuário específico de acordo com o ID informado",
-        "tags": ["USUÁRIOS"],
-        "parameters": [
-          {
-            "name": "id",
-            "in":"path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Usuário deletado com sucesso!"
-          },
-          "404": {
-            "description": "É retornado quando um usuário não é encontrado",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Error": {
-                    "summary": "Error",
-                    "value": {
-                      "statusCode": 404,
-                      "message": "user with id '38c9c1a2-7c82-4eed-9880-4609bfb0ed41z' not found",
-                      "error": "Not Found"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "É retornado quando ocorreu algum erro no servidor",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Error": {
-                    "summary": "Error",
-                    "value": {
-                      "statusCode": 500,
-                      "message": "Internal server error",
-                      "error": "Internal Server Error"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
       }
     },
     "/products": {

@@ -7,5 +7,4 @@ export declare class UsersRepository {
     findOne(id: string): Prisma.Prisma__UsersClient<import(".prisma/client").Users, never>;
     create(user: Prisma.UsersCreateInput): Prisma.Prisma__UsersClient<import(".prisma/client").Users, never>;
     update(id: string, user: Prisma.UsersUpdateInput): Prisma.Prisma__UsersClient<import(".prisma/client").Users, never>;
-    delete(id: string): Prisma.Prisma__UsersClient<import(".prisma/client").Users, never>;
 }

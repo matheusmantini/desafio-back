@@ -33,9 +33,6 @@ let UsersRepository = class UsersRepository {
             data: user,
         });
     }
-    delete(id) {
-        return this.prismaService.users.delete({ where: { id } });
-    }
 };
 UsersRepository = __decorate([
     (0, common_1.Injectable)(),

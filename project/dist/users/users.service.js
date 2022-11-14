@@ -52,18 +52,6 @@ let UsersService = class UsersService {
             throw new common_1.InternalServerErrorException();
         }
     }
-    async remove(id) {
-        const user = await this.usersRepository.findOne(id);
-        if (!user) {
-            throw new common_1.NotFoundException(`user with id '${id}' not found`);
-        }
-        try {
-            await this.usersRepository.delete(id);
-        }
-        catch (_a) {
-            throw new common_1.InternalServerErrorException();
-        }
-    }
 };
 UsersService = __decorate([
     (0, common_1.Injectable)(),

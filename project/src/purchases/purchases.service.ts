@@ -133,6 +133,10 @@ export class PurchasesService {
 
     try {
       await this.purchasesRepository.delete(id);
+
+      for (let i = 0; i < uniquePurchase.items_list_id.length; i++) {
+        await this.itemListRepository.delete(uniquePurchase.items_list_id[i]);      
+      }
     } catch {
       throw new InternalServerErrorException();
     }

@@ -58,19 +58,4 @@ export class UsersService {
       throw new InternalServerErrorException();
     }
   }
-
-  async remove(id: string) {
-
-    const user = await this.usersRepository.findOne(id);
-
-    if(!user){
-      throw new NotFoundException(`user with id '${id}' not found`);
-    }
-    
-    try {
-      await this.usersRepository.delete(id);
-    } catch {
-      throw new InternalServerErrorException();
-    }
-  }
 }
