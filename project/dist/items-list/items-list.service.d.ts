@@ -1,4 +1,4 @@
-import { ProductsRepository } from "src/products/products.repository";
+import { ProductsRepository } from "../products/products.repository";
 import { CreateItemListDto, UpdateItemListDto } from "./dto";
 import { ItemsListRepository } from "./items-list.repository";
 export declare class ItemsListService {
