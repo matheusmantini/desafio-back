@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Purchase = void 0;
-class Purchase {
+exports.PurchaseEntity = void 0;
+class PurchaseEntity {
 }
-exports.Purchase = Purchase;
+exports.PurchaseEntity = PurchaseEntity;
 //# sourceMappingURL=purchase.entity.js.map

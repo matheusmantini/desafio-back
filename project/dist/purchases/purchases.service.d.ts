@@ -1,5 +1,5 @@
-import { ItemsListRepository } from "src/items-list/items-list.repository";
-import { UsersRepository } from "src/users/users.repository";
+import { ItemsListRepository } from "../items-list/items-list.repository";
+import { UsersRepository } from "../users/users.repository";
 import { CreatePurchaseDto } from "./dto/create-purchase.dto";
 import { PurchasesRepository } from "./purchases.repository";
 export declare class PurchasesService {
