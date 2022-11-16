@@ -1,2 +1,7 @@
-export declare class User {
+export declare class UserEntity {
+    id: string;
+    name: string;
+    email: string;
+    password: string;
+    address: string;
 }
