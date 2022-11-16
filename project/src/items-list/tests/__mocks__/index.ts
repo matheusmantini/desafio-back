@@ -23,11 +23,3 @@ export const itemsListEntityList: ItemsListEntity[] = [
     product_name: 'Produto 3',
   },
 ];
-
-export const updatedItemsListEntity = {
-  id: '1',
-  product_id: '1',
-  product_price: 111.11,
-  quantity: 1,
-  product_name: 'Produto 1',
-};

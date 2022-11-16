@@ -1,7 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { ProductsRepository } from "../products.repository";
 import { ProductsService } from "../products.service";
-import { productsEntityList, updatedProductsEntity } from "./__mocks__";
+import { productsEntityList } from "./__mocks__";
 
 describe("ProductsService", () => {
   let productsService: ProductsService;

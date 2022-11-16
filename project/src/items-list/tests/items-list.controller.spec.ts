@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ItemsListController } from '../items-list.controller';
 import { ItemsListService } from '../items-list.service';
-import { itemsListEntityList, updatedItemsListEntity } from './__mocks__';
+import { itemsListEntityList } from './__mocks__';
 
 describe('ItemsListController', () => {
   let itemsListController: ItemsListController;
@@ -19,7 +19,7 @@ describe('ItemsListController', () => {
               .fn()
               .mockResolvedValue(itemsListEntityList),
               findOne: jest.fn().mockResolvedValue(itemsListEntityList[0]),
-            update: jest.fn().mockResolvedValue(updatedItemsListEntity),
+            update: jest.fn().mockResolvedValue(undefined),
             remove: jest.fn().mockResolvedValue(undefined),
           },
         },
@@ -129,7 +129,7 @@ describe('ItemsListController', () => {
       const result = await itemsListController.update('1', body);
 
       // Assert
-      expect(result).toEqual(updatedItemsListEntity);
+      expect(result).toBeUndefined();
     });
 
     it('should throw an exception', () => {
