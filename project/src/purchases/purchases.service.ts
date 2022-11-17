@@ -57,7 +57,6 @@ export class PurchasesService {
 
   async findAll() {
     const purchases = await this.purchasesRepository.findAll();
-
     let purchasesWithInfo = [];
 
     for (let i = 0; i < purchases.length; i++) {

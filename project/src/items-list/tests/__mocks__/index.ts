@@ -4,22 +4,22 @@ export const itemsListEntityList: ItemsListEntity[] = [
   {
     id: '1',
     product_id: '1',
-    product_price: 111.11,
-    quantity: 11,
     product_name: 'Produto 1',
+    product_price: 10.00,
+    quantity: 10,
   },
   {
     id: '2',
     product_id: '2',
-    product_price: 222.22,
-    quantity: 22,
     product_name: 'Produto 2',
+    product_price: 20.00,
+    quantity: 20,
   },
   {
     id: '3',
     product_id: '3',
-    product_price: 333.33,
-    quantity: 33,
     product_name: 'Produto 3',
+    product_price: 30.00,
+    quantity: 30,
   },
 ];
